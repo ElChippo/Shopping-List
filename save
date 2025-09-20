@@ -1,0 +1,65 @@
+import streamlit as st
+
+# Meals by category
+meals_by_category = {
+    "Rice Meals": ["Chicken Curry", "Fried Rice", "Beef Stir Fry"],
+    "Noodle Meals": ["Spaghetti Bolognese", "Pad Thai", "Ramen"],
+    "Salads": ["Greek Salad", "Caesar Salad", "Avocado Salad"]
+}
+
+# Map meals to ingredients
+meal_ingredients = {
+    "Chicken Curry": ["chicken", "curry paste", "coconut milk", "rice"],
+    "Fried Rice": ["rice", "egg", "vegetables", "soy sauce"],
+    "Beef Stir Fry": ["beef", "broccoli", "soy sauce", "rice"],
+    "Spaghetti Bolognese": ["spaghetti", "ground beef", "tomato sauce", "onion"],
+    "Pad Thai": ["rice noodles", "shrimp", "peanuts", "bean sprouts"],
+    "Ramen": ["ramen noodles", "chicken", "egg", "broth"],
+    "Greek Salad": ["lettuce", "tomato", "cucumber", "feta"],
+    "Caesar Salad": ["lettuce", "croutons", "parmesan", "chicken"],
+    "Avocado Salad": ["lettuce", "avocado", "tomato", "onion"]
+}
+
+# Initialize session state to store selected meals
+if "selected_meals" not in st.session_state:
+    st.session_state.selected_meals = []
+
+st.title("🥗 Weekly Meal Planner")
+
+# Select category
+selected_category = st.selectbox("Select a meal category:", list(meals_by_category.keys()))
+
+# Select meals in that category
+category_selection = st.multiselect(
+    f"Select meals in {selected_category}:",
+    meals_by_category[selected_category],
+    default=[meal for meal in st.session_state.selected_meals if meal in meals_by_category[selected_category]]
+)
+
+# Update session state
+for meal in category_selection:
+    if meal not in st.session_state.selected_meals:
+        st.session_state.selected_meals.append(meal)
+for meal in meals_by_category[selected_category]:
+    if meal not in category_selection and meal in st.session_state.selected_meals:
+        st.session_state.selected_meals.remove(meal)
+
+# Display combined shopping list
+if st.session_state.selected_meals:
+    shopping_set = set()
+    for meal in st.session_state.selected_meals:
+        shopping_set.update(meal_ingredients[meal])
+
+    # Example shop order
+    shop_order = [
+        "lettuce", "tomato", "cucumber", "onion",
+        "chicken", "ground beef", "rice", "spaghetti",
+        "curry paste", "coconut milk", "feta", "egg",
+        "soy sauce", "ramen noodles", "broccoli", "peanuts", "bean sprouts"
+    ]
+
+    shopping_list = [item for item in shop_order if item in shopping_set]
+
+    st.subheader("🛒 Shopping List (in shop order)")
+    for item in shopping_list:
+        st.write(f"- {item}")
