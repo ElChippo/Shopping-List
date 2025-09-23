@@ -22,7 +22,7 @@ ingredients_by_meal = {
     "Chicken Curry": ["Chicken", "Rice", "Curry Sauce", "Pepper"],
     "Beef and Rice": ["Beef Cut", "Rice", "Taco Seasoning", "Sugar Snap Peas"],
     "Korean Chicken and Rice": ["Frozen Chicken", "Rice", "Miso Paste"],
-    "Thai Sriracha Noodles": ["Ready Cooked Noodles", "Sriracha", "Chicken"],
+    "Thai Sriracha Noodles": ["Ready Cooked Noodles", "Sriracha", "Chicken", "Sugar Snap Peas"],
     "Kebab": ["Kebab Bread", "Kebab Meat", "Chips"],
     "Tacos": ["Taco Bread", "Mince Beef", "Cheese", "Lettuce", "Taco Sauce", "Chips"],
     "Hot Dogs": ["Hot Dog Buns", "Hot Dogs", "Onion", "Chips"],
