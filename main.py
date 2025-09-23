@@ -43,7 +43,7 @@ ingredients_by_meal = {
 
 ingredients_order = [
     #Fruit and Veg Isle
-    "Sugar Snap Peas", "Ready Cooked Noodles", "Mushrooms", "Kiwis",
+    "Sugar Snap Peas", "Ready Cooked Noodles", "Mushrooms", "Kiwis", "Apples",
 
     #Meat And Dairy Isle
     "Chicken", "Beef Cut", "Mince Beef", "Bacon Lardons", "Cheese", "Yoghurts", "Burger Patties", "Sausage Rolls", "Pizza", "Microwave Meal", "Kebab Meat", "Hot Dogs",
@@ -88,8 +88,13 @@ if st.button("Add Meal"):
     for ingredient in ingredients_by_meal[selected_meal]:
         st.session_state.selected_ingredients.append(ingredient)
 
-new_ingredient = st.text_input("Add a new ingredient")
+selected_ingredient = st.selectbox("Add Ingredient", ingredients_order)
+
 if st.button("Add Ingredient"):
+    st.session_state.selected_ingredients.append(selected_ingredient)
+
+new_ingredient = st.text_input("Add a custom item")
+if st.button("Add Item"):
     # Only add if not empty and not already in the list
     if new_ingredient.strip():
         st.session_state.selected_ingredients.append(new_ingredient.strip())
